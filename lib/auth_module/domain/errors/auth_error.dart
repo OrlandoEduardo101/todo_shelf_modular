@@ -76,3 +76,30 @@ class RegisterCredentialsError implements IFailureLogin {
     }
   }
 }
+
+class SaveDatabaseError implements IFailureLogin {
+  
+  @override
+  final String message;
+  @override
+  final StackTrace? stackTrace;
+  @override
+  final String label;
+  @override
+  final dynamic exception;
+
+  @override
+  String toString() => 'IFailureLogin(message: $message)';
+
+  SaveDatabaseError({
+    this.message = '',
+    this.stackTrace,
+    this.label = '',
+    this.exception,
+  }) {
+    if (!(Platform.environment.containsKey('FLUTTER_TEST')) &&
+        exception != null) {
+      print('label: $label, stackTrace: $stackTrace');
+    }
+  }
+}
