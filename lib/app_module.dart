@@ -7,7 +7,7 @@ class AppModule extends Module {
 
   @override
   List<Bind> get binds => [
-    Bind.scoped((i) async => await DatabaseService.start()),
+    Bind.scoped((i) async => await DatabaseService.start().whenComplete(() => i<DatabaseService>().verifyTables(i()))),
     // AsyncBind<DatabaseService>((i) => DatabaseService.start()),
   ];
 

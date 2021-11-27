@@ -1,29 +1,25 @@
-import 'dart:io';
-import 'package:dotenv/dotenv.dart' as dotenv;
-
 import 'package:postgres/postgres.dart';
-
 import 'database_error.dart';
+import 'read_dot_env.dart';
 
 class DatabaseService {
   late PostgreSQLConnection _connection;
 
   static Future<DatabaseService> start() async {
-    String filename = (await File.fromUri(Uri.parse('.env')).exists())
-        ? '.env'
-        : '.env.example';
-    dotenv.load(filename);
-
+    // String filename = (await File.fromUri(Uri.parse('.env')).exists())
+    //     ? '.env'
+    //     : '.env.example';
+    // dotenv.load(filename);
 
     try {
+      final env = await ReadDotEnv().init();
       return await connect({
-        'Database_HOST': dotenv.env['DB_HOST'],
-        'Database_USER': dotenv.env['DB_USER'],
-        'Database_PASS': dotenv.env['DB_PASS'],
-        'Database_NAME': dotenv.env['DB_NAME'],
-        'Database_PORT': dotenv.env['DB_PORT'],
+        'Database_HOST': env['DB_HOST'],
+        'Database_USER': env['DB_USER'],
+        'Database_PASS': env['DB_PASS'],
+        'Database_NAME': env['DB_NAME'],
+        'Database_PORT': env['DB_PORT'],
       });
-      
     } on PostgreSQLException catch (e) {
       throw ErrorToQuery(
           message: e.message,
@@ -36,8 +32,19 @@ class DatabaseService {
     // print('Serving at http://${server.address.host}:${server.port}');
   }
 
+  Future<void> verifyTables(DatabaseService value) async {
+    var result = await query('''SELECT EXISTS (
+    SELECT FROM information_schema.tables 
+    WHERE  table_name  = 'users'
+    );''');
+    
+    if (!((result.first as Map).entries.first.value["exists"])) {
+      print('no has table');
+    }
+  }
+
   static Future<DatabaseService> connect(Map<String, dynamic> env) async {
-    int _port = env['Database_PORT'];
+    int _port = int.tryParse(env['Database_PORT']) ?? 9001;
     String _host = env['Database_HOST'];
     String _user = env['Database_USER'];
     String _pass = env['Database_PASS'];
