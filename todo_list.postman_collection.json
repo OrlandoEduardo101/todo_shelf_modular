@@ -1,0 +1,820 @@
+{
+	"info": {
+		"_postman_id": "c21f9b6b-56d1-49e7-bc73-e2c488953dd3",
+		"name": "todo_list",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12838827"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "login",
+					"item": [
+						{
+							"name": "ping",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:3001/auth/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"auth",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "200",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:3001/auth/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"auth",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Wed, 29 Jun 2022 20:13:46 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "3"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "OK!"
+								}
+							]
+						},
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"teste@teste.com\",\r\n    \"password\": \"123456\"\r\n}"
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/auth/login",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "200 - succes",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"email\": \"teste@teste.com\",\r\n    \"password\": \"123456\"\r\n}"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3001/auth/login",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"auth",
+												"login"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Thu, 30 Jun 2022 02:54:10 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "331"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "{\"id\":1,\"name\":\"teste teste\",\"email\":\"teste@teste.com\",\"token\":\"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTY2NDQwNTAsImlhdCI6MTY1NjU1NzY1MCwiaXNzIjoiMTI3LjAuMC4xLzkwMDEiLCJzdWIiOiIxIn0.U5FZqWzNLR58zcnK9CLj87HwFeNh_2Gnegk1skVHhmY\",\"created_on\":\"2022-06-29T22:46:50.988629Z\",\"last_login\":\"2022-06-29T23:54:06.843672Z\"}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "register",
+					"item": [
+						{
+							"name": "ping",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://127.0.0.1:3001/auth/",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"auth",
+										""
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "200",
+									"originalRequest": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://127.0.0.1:3001/auth/",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"auth",
+												""
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Wed, 29 Jun 2022 20:13:46 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "3"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "OK!"
+								}
+							]
+						},
+						{
+							"name": "create user",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"teste teste\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"password\": \"123456\"\r\n}"
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/auth/register",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "500",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"teste teste\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"password\": \"123456\"\r\n}"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3001/auth/register",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"auth",
+												"register"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Thu, 30 Jun 2022 01:08:33 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "923"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "Invalid argument(s): Response body \"{auth: false, message: null value in column \"created_on\" of relation \"users\" violates not-null constraint}\" must be a String or a Stream./n#0      new Body (package:shelf/src/body.dart:68:7)\n#1      new Message (package:shelf/src/message.dart:85:23)\n#2      new Response (package:shelf/src/response.dart:335:8)\n#3      AuthController.registerUser.<anonymous closure> (package:todo_shelf_modular/auth_module/presenter/auth_controller.dart:48:16)\n#4      CustomEither.fold (package:todo_shelf_modular/shared/utils/either/custom_either.dart:14:64)\n#5      AuthController.registerUser (package:todo_shelf_modular/auth_module/presenter/auth_controller.dart:46:19)\n<asynchronous suspension>\n#6      ModularBase.handler (package:shelf_modular/src/presenter/modular_base.dart:143:18)\n<asynchronous suspension>\n#7      handleRequest (package:shelf/shelf_io.dart:114:16)\n<asynchronous suspension>\n"
+								},
+								{
+									"name": "400 - bad request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"teste teste\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"password\": \"123456\"\r\n}"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3001/auth/register",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"auth",
+												"register"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Thu, 30 Jun 2022 01:11:44 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "113"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "{\"auth\":false,\"message\":\"null value in column \\\"created_on\\\" of relation \\\"users\\\" violates not-null constraint\"}"
+								},
+								{
+									"name": "403 - duplicate",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"teste teste\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"password\": \"123456\"\r\n}"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3001/auth/register",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"auth",
+												"register"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Thu, 30 Jun 2022 01:26:05 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "136"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "{\"auth\":false,\"message\":\"user already registred\",\"database-message\":\"duplicate key value violates unique constraint \\\"users_name_key\\\"\"}"
+								},
+								{
+									"name": "200 - succes",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"teste teste\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"password\": \"123456\"\r\n}"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3001/auth/register",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"auth",
+												"register"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Thu, 30 Jun 2022 01:46:51 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "24"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "user created with succes"
+								}
+							]
+						},
+						{
+							"name": "create user and login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"teste teste\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"password\": \"123456\"\r\n}"
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/auth/register",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"auth",
+										"register"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "500",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"teste teste\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"password\": \"123456\"\r\n}"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3001/auth/register",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"auth",
+												"register"
+											]
+										}
+									},
+									"status": "Internal Server Error",
+									"code": 500,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Thu, 30 Jun 2022 01:08:33 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "923"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "Invalid argument(s): Response body \"{auth: false, message: null value in column \"created_on\" of relation \"users\" violates not-null constraint}\" must be a String or a Stream./n#0      new Body (package:shelf/src/body.dart:68:7)\n#1      new Message (package:shelf/src/message.dart:85:23)\n#2      new Response (package:shelf/src/response.dart:335:8)\n#3      AuthController.registerUser.<anonymous closure> (package:todo_shelf_modular/auth_module/presenter/auth_controller.dart:48:16)\n#4      CustomEither.fold (package:todo_shelf_modular/shared/utils/either/custom_either.dart:14:64)\n#5      AuthController.registerUser (package:todo_shelf_modular/auth_module/presenter/auth_controller.dart:46:19)\n<asynchronous suspension>\n#6      ModularBase.handler (package:shelf_modular/src/presenter/modular_base.dart:143:18)\n<asynchronous suspension>\n#7      handleRequest (package:shelf/shelf_io.dart:114:16)\n<asynchronous suspension>\n"
+								},
+								{
+									"name": "400 - bad request",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"teste teste\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"password\": \"123456\"\r\n}"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3001/auth/register",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"auth",
+												"register"
+											]
+										}
+									},
+									"status": "Bad Request",
+									"code": 400,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Thu, 30 Jun 2022 01:11:44 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "113"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "{\"auth\":false,\"message\":\"null value in column \\\"created_on\\\" of relation \\\"users\\\" violates not-null constraint\"}"
+								},
+								{
+									"name": "403 - duplicate",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"teste teste\",\r\n    \"email\": \"teste@teste.com\",\r\n    \"password\": \"123456\"\r\n}"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3001/auth/register",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"auth",
+												"register"
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Thu, 30 Jun 2022 01:26:05 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "136"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "{\"auth\":false,\"message\":\"user already registred\",\"database-message\":\"duplicate key value violates unique constraint \\\"users_name_key\\\"\"}"
+								},
+								{
+									"name": "200 - succes",
+									"originalRequest": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n    \"name\": \"teste teste\",\r\n    \"email\": \"teste2@teste.com\",\r\n    \"password\": \"123456\"\r\n}"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3001/auth/registerAndAuth",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"auth",
+												"registerAndAuth"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Thu, 30 Jun 2022 03:02:32 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "332"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "{\"id\":3,\"name\":\"teste teste\",\"email\":\"teste2@teste.com\",\"token\":\"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NTY2NDQ1NTIsImlhdCI6MTY1NjU1ODE1MiwiaXNzIjoiMTI3LjAuMC4xLzkwMDEiLCJzdWIiOiIzIn0.bGdza2Z5ZHseh3XqguDDmRfqkdcxta_yYqZp4lMXZ6Y\",\"created_on\":\"2022-06-30T00:02:26.497763Z\",\"last_login\":\"2022-06-30T00:02:26.497763Z\"}"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
