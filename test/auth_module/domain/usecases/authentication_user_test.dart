@@ -13,21 +13,39 @@ class AuthenticationUserMock extends Mock
 main() {
   late AuthenticationUser usecase;
   late IAuthenticationUserRepository repository;
+  final date = DateTime.now();
 
   setUpAll(() {
     repository = AuthenticationUserMock();
     usecase = AuthenticationUser(repository);
-    registerFallbackValue(UserAuthParams(email: 'teste@teste.com', password: '123456'));
+    registerFallbackValue(UserAuthParams(
+      email: 'teste@teste.com',
+      password: '123456',
+      lastLogin: date,
+    ));
   });
 
-  final params = UserAuthParams(email: 'teste@teste.com', password: '123456');
-  final paramsInvalidEmail = UserAuthParams(email: 'testeteste.com', password: '123456');
-  final paramsInvalidPassword = UserAuthParams(email: 'teste@teste.com', password: '');
+  final params = UserAuthParams(
+    email: 'teste@teste.com',
+    password: '123456',
+    lastLogin: date,
+  );
+  final paramsInvalidEmail = UserAuthParams(
+    email: 'testeteste.com',
+    password: '123456',
+    lastLogin: date,
+  );
+  final paramsInvalidPassword = UserAuthParams(
+    email: 'teste@teste.com',
+    password: '',
+    lastLogin: date,
+  );
   final response = UserEntity(email: 'teste@teste.com');
 
   test('must return UserEntity', () async {
     when(() => repository.authenticationUser(any())).thenAnswer(
-        (invocation) async => SuccessResponse<IFailureLogin, UserEntity>(response));
+        (invocation) async =>
+            SuccessResponse<IFailureLogin, UserEntity>(response));
 
     var result = await usecase(params);
 
@@ -41,7 +59,8 @@ main() {
 
   test('must return IFailureLogin from email', () async {
     when(() => repository.authenticationUser(any())).thenAnswer(
-        (invocation) async => SuccessResponse<IFailureLogin, UserEntity>(response));
+        (invocation) async =>
+            SuccessResponse<IFailureLogin, UserEntity>(response));
 
     var result = await usecase(paramsInvalidEmail);
 
@@ -61,7 +80,8 @@ main() {
 
   test('must return IFailureLogin from password', () async {
     when(() => repository.authenticationUser(any())).thenAnswer(
-        (invocation) async => SuccessResponse<IFailureLogin, UserEntity>(response));
+        (invocation) async =>
+            SuccessResponse<IFailureLogin, UserEntity>(response));
 
     var result = await usecase(paramsInvalidPassword);
 
@@ -81,7 +101,8 @@ main() {
 
   test('must return IFailureLogin from repository', () async {
     when(() => repository.authenticationUser(any())).thenAnswer(
-        (invocation) async => FailureResponse<IFailureLogin, UserEntity>(LoginCredentialsError()));
+        (invocation) async => FailureResponse<IFailureLogin, UserEntity>(
+            LoginCredentialsError()));
 
     var result = await usecase(params);
 
