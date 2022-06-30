@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:developer';
+
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 import 'package:todo_shelf_modular/auth_module/domain/entities/user_auth_params.dart';
@@ -5,6 +8,7 @@ import 'package:todo_shelf_modular/auth_module/domain/entities/user_register_par
 import 'package:todo_shelf_modular/auth_module/domain/usecases/authentication_user.dart';
 import 'package:todo_shelf_modular/auth_module/domain/usecases/register_user.dart';
 import 'package:todo_shelf_modular/auth_module/external/mappers/user_entity_mapper.dart';
+import 'package:todo_shelf_modular/auth_module/presenter/auth_messages.dart';
 import 'package:todo_shelf_modular/shared/utils/utils.dart';
 
 class AuthController {
@@ -17,9 +21,9 @@ class AuthController {
   final IRegisterUser _registerUser;
 
   Future<Response> autheticationUser(ModularArguments args) async {
-    final passwordHash = Utils.generateSHA256Hash(args.params['password']);
+    final passwordHash = Utils.generateSHA256Hash(args.data['password']);
     final result = await _authenticationUser(
-        UserAuthParams(email: args.params['email'], password: passwordHash));
+        UserAuthParams(email: args.data['email'], password: passwordHash));
     return result.fold(
         (failure) =>
             Response.notFound({'auth': false, 'message': failure.message}),
@@ -31,16 +35,32 @@ class AuthController {
   }
 
   Future<Response> registerUser(ModularArguments args) async {
-    final passwordHash = Utils.generateSHA256Hash(args.params['password']);
+    print('register');
+    log('register');
+    final passwordHash = Utils.generateSHA256Hash(args.data['password']);
     final result = await _registerUser(UserRegisterParams(
-        email: args.params['email'],
-        password: passwordHash,
-        name: args.params['name']));
-    return result.fold(
-        (failure) =>
-            Response.notFound({'auth': false, 'message': failure.message}),
-        (success) {
-      return Response.ok(UserEntityMapper().toMap(success));
+      email: args.data['email'],
+      password: passwordHash,
+      name: args.data['name'],
+      createdOn: DateTime.now(),
+      lastLogin: DateTime.now(),
+    ));
+    return result.fold((failure) {
+      if (failure.message.contains('duplicate key')) {
+        return Response(
+          403,
+          body: jsonEncode({'auth': false, 'message': AuthMessages.userAlreadyRegistred,'database-message': failure.message}),
+        );
+      }
+      if (failure.message.contains('null value')) {
+        return Response(
+          400,
+          body: jsonEncode({'auth': false, 'message': failure.message}),
+        );
+      }
+      return Response.notFound(jsonEncode({'auth': false, 'message': failure.message}));
+    }, (success) {
+      return Response.ok(AuthMessages.cretedSucces);
     });
   }
 

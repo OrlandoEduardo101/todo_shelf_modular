@@ -14,10 +14,10 @@ class RegisterUserDatasource implements IRegisterUserDatasource {
   Future<UserEntity> registerUser(UserRegisterParams param) async {
     try {
       String sql =
-          "insert into users (email, name, password) values (@email, @name, @password) returning id";
+          "insert into users (email, name, passwordHash, created_on, last_login) values (@email, @name, @password, @created_on, @last_login) returning id, email, name";
       final result = await _database.query(sql,
           values: UserRegisterParamsMapper().toMap(param));
-      return UserEntity(id: result[0]['users']['id']);
+      return UserEntity(id: result[0]['users']['id'], email: result[0]['users']['email'], name: result[0]['users']['name'],);
     } on IDatabaseError catch (e, s) {
       throw SaveDatabaseError(message: e.message ?? '', exception: e, stackTrace: s);
     }

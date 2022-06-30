@@ -1,3 +1,4 @@
+import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 import 'package:todo_shelf_modular/shared/services/database_service.dart';
 
@@ -7,12 +8,13 @@ class AppModule extends Module {
 
   @override
   List<Bind> get binds => [
-    Bind.scoped((i) async => await DatabaseService.start().whenComplete(() => i<DatabaseService>().verifyTables(i()))),
-    // AsyncBind<DatabaseService>((i) => DatabaseService.start()),
+    // Bind.scoped((i) async => await DatabaseService.start().whenComplete(() => i<DatabaseService>().verifyTables(i()))),
+    Bind.singleton<DatabaseService>((i) => DatabaseService()),
   ];
 
   @override
   List<ModularRoute> get routes => [
+        Route.get('/', () => Response.ok('OK!')),
         Route.module('/auth', module: AuthModule()),
       ];
 }

@@ -1,7 +1,6 @@
 import 'package:dotenv/dotenv.dart' as dotenv;
 import 'dart:io';
 import "package:path/path.dart" show dirname;
-import 'dart:io' show Platform;
 
 class ReadDotEnv {
   static final ReadDotEnv _singleton = ReadDotEnv._internal();
@@ -30,7 +29,6 @@ class ReadDotEnv {
   Future<Map<String, String>> init() async {
     try {
       print(dirname(Platform.script.toString()));
-      final uri = Uri();
       final path = Uri.parse('.env');
       String filename =
           (await File.fromUri(path).exists()) ? '.env' : '.env.example';

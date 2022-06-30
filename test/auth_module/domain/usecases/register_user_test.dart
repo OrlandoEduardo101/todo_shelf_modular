@@ -7,28 +7,58 @@ import 'package:todo_shelf_modular/auth_module/domain/repositories/i_register_us
 import 'package:todo_shelf_modular/auth_module/domain/usecases/register_user.dart';
 import 'package:todo_shelf_modular/shared/utils/either/custom_either.dart';
 
-class RegisterUserMock extends Mock
-    implements IRegisterUserRepository {}
+class RegisterUserMock extends Mock implements IRegisterUserRepository {}
 
 main() {
   late RegisterUser usecase;
   late IRegisterUserRepository repository;
+  final date = DateTime.now();
 
   setUpAll(() {
     repository = RegisterUserMock();
     usecase = RegisterUser(repository);
-    registerFallbackValue(UserRegisterParams(email: 'teste@teste.com', password: '123456', name: 'teste'));
+    registerFallbackValue(UserRegisterParams(
+      email: 'teste@teste.com',
+      password: '123456',
+      name: 'teste',
+      createdOn: date,
+      lastLogin: date,
+    ));
   });
 
   final response = UserEntity(email: 'teste@teste.com');
-  final params = UserRegisterParams(email: 'teste@teste.com', password: '123456', name: 'teste');
-  final paramsInvalidName = UserRegisterParams(email: 'teste@teste.com', password: '123456', name: '');
-  final paramsInvalidEmail = UserRegisterParams(email: 'testeteste.com', password: '123456', name: 'teste');
-  final paramsInvalidPassword = UserRegisterParams(email: 'teste@teste.com', password: '', name: 'teste');
+  final params = UserRegisterParams(
+    email: 'teste@teste.com',
+    password: '123456',
+    name: 'teste',
+    createdOn: date,
+    lastLogin: date,
+  );
+  final paramsInvalidName = UserRegisterParams(
+    email: 'teste@teste.com',
+    password: '123456',
+    name: '',
+    createdOn: date,
+    lastLogin: date,
+  );
+  final paramsInvalidEmail = UserRegisterParams(
+    email: 'testeteste.com',
+    password: '123456',
+    name: 'teste',
+    createdOn: date,
+    lastLogin: date,
+  );
+  final paramsInvalidPassword = UserRegisterParams(
+    email: 'teste@teste.com',
+    password: '',
+    name: 'teste',
+    createdOn: date,
+    lastLogin: date,
+  );
 
   test('must return UserEntity', () async {
-    when(() => repository.registerUser(any())).thenAnswer(
-        (invocation) async => SuccessResponse<IFailureLogin, UserEntity>(response));
+    when(() => repository.registerUser(any())).thenAnswer((invocation) async =>
+        SuccessResponse<IFailureLogin, UserEntity>(response));
 
     var result = await usecase(params);
 
@@ -41,8 +71,8 @@ main() {
   });
 
   test('must return IFailureLogin from email', () async {
-    when(() => repository.registerUser(any())).thenAnswer(
-        (invocation) async => SuccessResponse<IFailureLogin, UserEntity>(response));
+    when(() => repository.registerUser(any())).thenAnswer((invocation) async =>
+        SuccessResponse<IFailureLogin, UserEntity>(response));
 
     var result = await usecase(paramsInvalidEmail);
 
@@ -61,8 +91,8 @@ main() {
   });
 
   test('must return IFailureLogin from password', () async {
-    when(() => repository.registerUser(any())).thenAnswer(
-        (invocation) async => SuccessResponse<IFailureLogin, UserEntity>(response));
+    when(() => repository.registerUser(any())).thenAnswer((invocation) async =>
+        SuccessResponse<IFailureLogin, UserEntity>(response));
 
     var result = await usecase(paramsInvalidPassword);
 
@@ -81,8 +111,8 @@ main() {
   });
 
   test('must return IFailureLogin from name', () async {
-    when(() => repository.registerUser(any())).thenAnswer(
-        (invocation) async => SuccessResponse<IFailureLogin, UserEntity>(response));
+    when(() => repository.registerUser(any())).thenAnswer((invocation) async =>
+        SuccessResponse<IFailureLogin, UserEntity>(response));
 
     var result = await usecase(paramsInvalidName);
 
@@ -101,8 +131,8 @@ main() {
   });
 
   test('must return IFailureLogin from repository', () async {
-    when(() => repository.registerUser(any())).thenAnswer(
-        (invocation) async => FailureResponse<IFailureLogin, UserEntity>(RegisterCredentialsError()));
+    when(() => repository.registerUser(any())).thenAnswer((invocation) async =>
+        FailureResponse<IFailureLogin, UserEntity>(RegisterCredentialsError()));
 
     var result = await usecase(params);
 

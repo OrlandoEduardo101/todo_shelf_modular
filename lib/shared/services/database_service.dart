@@ -5,6 +5,15 @@ import 'read_dot_env.dart';
 class DatabaseService {
   late PostgreSQLConnection _connection;
 
+  static final DatabaseService _singleton = DatabaseService._internal();
+
+  factory DatabaseService() {
+    start().then((value) => value.verifyTables());
+    return _singleton;
+  }
+
+  DatabaseService._internal();
+
   static Future<DatabaseService> start() async {
     // String filename = (await File.fromUri(Uri.parse('.env')).exists())
     //     ? '.env'
@@ -32,15 +41,21 @@ class DatabaseService {
     // print('Serving at http://${server.address.host}:${server.port}');
   }
 
-  Future<void> verifyTables(DatabaseService value) async {
-    var result = await query('''SELECT EXISTS (
-    SELECT FROM information_schema.tables 
-    WHERE  table_name  = 'users'
-    );''');
-    
-    if (!((result.first as Map).entries.first.value["exists"])) {
-      print('no has table');
-    }
+  Future<void> verifyTables() async {
+    // username VARCHAR ( 50 ) UNIQUE NOT NULL,
+    var result = await execute('''
+              CREATE TABLE IF NOT EXISTS users (
+                id serial PRIMARY KEY,
+                passwordHash VARCHAR ( 255 ) NOT NULL,
+                name VARCHAR ( 255 ) NOT NULL,
+                email VARCHAR ( 255 ) UNIQUE NOT NULL,
+                created_on TIMESTAMP NOT NULL,
+                last_login TIMESTAMP 
+              );''');
+
+            if (result == 0) {
+              print('no has table');
+            }
   }
 
   static Future<DatabaseService> connect(Map<String, dynamic> env) async {
@@ -50,11 +65,11 @@ class DatabaseService {
     String _pass = env['Database_PASS'];
     String _name = env['Database_NAME'];
 
-    DatabaseService database = DatabaseService();
-    database._connection = PostgreSQLConnection(_host, _port, _name,
+    // DatabaseService database = DatabaseService();
+    _singleton._connection = PostgreSQLConnection(_host, _port, _name,
         username: _user, password: _pass);
-    await database._connection.open();
-    return database;
+    await _singleton._connection.open();
+    return _singleton;
   }
 
   Future<List<dynamic>> query(String sql,
@@ -62,6 +77,20 @@ class DatabaseService {
     try {
       return await _connection.mappedResultsQuery(sql,
           substitutionValues: values);
+    } on PostgreSQLException catch (e) {
+      throw ErrorToQuery(
+          message: e.message,
+          code: e.code,
+          columnName: e.columnName,
+          stackTrace: e.stackTrace,
+          dataTypeName: e.dataTypeName);
+    }
+  }
+
+  Future<int> execute(String sql,
+      {Map<String, dynamic> values = const {}}) async {
+    try {
+      return await _connection.execute(sql);
     } on PostgreSQLException catch (e) {
       throw ErrorToQuery(
           message: e.message,
