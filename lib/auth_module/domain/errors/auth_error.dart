@@ -103,3 +103,30 @@ class SaveDatabaseError implements IFailureLogin {
     }
   }
 }
+
+class ReadDatabaseError implements IFailureLogin {
+  
+  @override
+  final String message;
+  @override
+  final StackTrace? stackTrace;
+  @override
+  final String label;
+  @override
+  final dynamic exception;
+
+  @override
+  String toString() => 'IFailureLogin(message: $message)';
+
+  ReadDatabaseError({
+    this.message = '',
+    this.stackTrace,
+    this.label = '',
+    this.exception,
+  }) {
+    if (!(Platform.environment.containsKey('FLUTTER_TEST')) &&
+        exception != null) {
+      print('label: $label, stackTrace: $stackTrace');
+    }
+  }
+}

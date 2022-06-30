@@ -4,4 +4,5 @@ import '../../domain/entities/user_entity.dart';
 
 abstract class IAuthenticationUserDatasource {
   Future<UserEntity> authenticationUser(UserAuthParams param);
+  Future<UserEntity> updateUserDateLogin(UserAuthParams param);
 }

@@ -22,15 +22,27 @@ class AuthController {
 
   Future<Response> autheticationUser(ModularArguments args) async {
     final passwordHash = Utils.generateSHA256Hash(args.data['password']);
-    final result = await _authenticationUser(
-        UserAuthParams(email: args.data['email'], password: passwordHash));
-    return result.fold(
-        (failure) =>
-            Response.notFound({'auth': false, 'message': failure.message}),
-        (success) {
+    final result = await _authenticationUser(UserAuthParams(
+        email: args.data['email'],
+        password: passwordHash,
+        lastLogin: DateTime.now()));
+    return result.fold((failure) {
+      if (failure.message.contains('invalid credentials')) {
+        return Response(
+          403,
+          body: jsonEncode({
+            'auth': false,
+            'message': AuthMessages.invalidUserCredentials,
+            'database-message': failure.message
+          }),
+        );
+      }
+
+      return Response.notFound({'auth': false, 'message': failure.message});
+    }, (success) {
       final jwt = Utils.generateJWT(success);
       return Response.ok(
-          UserEntityMapper().toMap(success.copyWith(token: jwt)));
+          UserEntityMapper().toJson(success.copyWith(token: jwt)));
     });
   }
 
@@ -49,7 +61,11 @@ class AuthController {
       if (failure.message.contains('duplicate key')) {
         return Response(
           403,
-          body: jsonEncode({'auth': false, 'message': AuthMessages.userAlreadyRegistred,'database-message': failure.message}),
+          body: jsonEncode({
+            'auth': false,
+            'message': AuthMessages.userAlreadyRegistred,
+            'database-message': failure.message
+          }),
         );
       }
       if (failure.message.contains('null value')) {
@@ -58,7 +74,8 @@ class AuthController {
           body: jsonEncode({'auth': false, 'message': failure.message}),
         );
       }
-      return Response.notFound(jsonEncode({'auth': false, 'message': failure.message}));
+      return Response.notFound(
+          jsonEncode({'auth': false, 'message': failure.message}));
     }, (success) {
       return Response.ok(AuthMessages.cretedSucces);
     });

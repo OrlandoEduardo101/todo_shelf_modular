@@ -7,6 +7,7 @@ class UserAuthParamsMapper {
     return {
       'email': object.email,
       'password': object.password,
+      'last_login': object.lastLogin.toIso8601String(),
     };
   }
 
@@ -14,6 +15,7 @@ class UserAuthParamsMapper {
     return UserAuthParams(
       email: map['email'], 
       password: map['password'],
+      lastLogin: map['last_login'],
     );
   }
 

@@ -9,6 +9,8 @@ class UserEntityMapper {
       'name': object.name,
       'email': object.email,
       'token': object.token,
+      'created_on': object.createdOn?.toIso8601String(),
+      'last_login': object.lastLogin?.toIso8601String(),
     };
   }
 
@@ -17,7 +19,9 @@ class UserEntityMapper {
       id: map['id'],
       name: map['name'],
       email: map['email'],
-      token: map['token'],
+      token: map['token'] ?? '',
+      createdOn: map['created_on'],
+      lastLogin: map['last_login'],
     );
   }
 
