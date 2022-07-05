@@ -1,6 +1,7 @@
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 import 'package:todo_shelf_modular/shared/services/database_service.dart';
+import 'package:todo_shelf_modular/todo_module/todo_module.dart';
 
 import 'auth_module/auth_module.dart';
 
@@ -16,6 +17,7 @@ class AppModule extends Module {
   List<ModularRoute> get routes => [
         Route.get('/', () => Response.ok('OK!')),
         Route.module('/auth', module: AuthModule()),
+        Route.module('/todo', module: TodoModule()),
       ];
 }
 
