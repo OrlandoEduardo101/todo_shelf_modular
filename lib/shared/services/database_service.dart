@@ -43,7 +43,7 @@ class DatabaseService {
 
   Future<void> verifyTables() async {
     // username VARCHAR ( 50 ) UNIQUE NOT NULL,
-    var result = await execute('''
+    var resultUser = await execute('''
               CREATE TABLE IF NOT EXISTS users (
                 id serial PRIMARY KEY,
                 passwordHash VARCHAR ( 255 ) NOT NULL,
@@ -53,9 +53,23 @@ class DatabaseService {
                 last_login TIMESTAMP 
               );''');
 
-            if (result == 0) {
-              print('no has table');
-            }
+    if (resultUser == 0) {
+      print('no has table');
+    }
+
+    var resultTodo = await execute('''
+              CREATE TABLE IF NOT EXISTS users (
+                id serial PRIMARY KEY,
+                name VARCHAR ( 255 ) NOT NULL,
+                done BOOLEAN NOT NULL DEFAULT FALSE,
+                updateAt TIMESTAMP NOT NULL,
+                createAt TIMESTAMP NOT NULL,
+                deadlineAt TIMESTAMP NOT NULL
+              );''');
+
+    if (resultTodo == 0) {
+      print('no has table');
+    }
   }
 
   static Future<DatabaseService> connect(Map<String, dynamic> env) async {
