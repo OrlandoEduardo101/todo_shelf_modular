@@ -58,7 +58,7 @@ class DatabaseService {
     }
 
     var resultTodo = await execute('''
-              CREATE TABLE IF NOT EXISTS users (
+              CREATE TABLE IF NOT EXISTS todos (
                 id serial PRIMARY KEY,
                 name VARCHAR ( 255 ) NOT NULL,
                 done BOOLEAN NOT NULL DEFAULT FALSE,
