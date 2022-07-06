@@ -29,9 +29,9 @@ class TodoEntityMapper implements IMapper<TodoEntity> {
         id: map['id'],
         name: map['name'],
         done: map['done'],
-        updateAt: map['updateAt'],
-        deadlineAt: map['deadlineAt'],
-        createAt: map['createAt'],
+        updateAt: map['updateat'],
+        deadlineAt: map['deadlineat'],
+        createAt: map['createat'],
       );
     } catch (e, s) {
       throw MapperTodoDatabaseError(exception: e, stackTrace: s);
