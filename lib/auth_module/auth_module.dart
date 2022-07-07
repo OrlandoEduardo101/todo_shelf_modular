@@ -27,7 +27,7 @@ class AuthModule extends Module {
         Bind.scoped((i) => RegisterUserDatasource(i())),
 
         //presenter
-        Bind.scoped((i) => AuthController(i(), i())),
+        Bind.scoped((i) => AuthController(i(), i(), i())),
       ];
 
   @override

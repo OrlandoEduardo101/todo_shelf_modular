@@ -19,7 +19,7 @@ class CreateTodoUsecase implements ICreateTodoUsecase {
   CreateTodoResponse call(TodoEntity param) async {
     if (param.name.isEmpty) {
       return FailureResponse(
-          SaveTodoDatabaseError(message: 'Invalid email format'));
+          SaveTodoDatabaseError(message: 'Invalid name format'));
     }
     return _repository.createTodo(param);
   }

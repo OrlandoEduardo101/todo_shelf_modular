@@ -3,20 +3,24 @@ import 'dart:developer';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
-import 'package:todo_shelf_modular/todo_module/domain/entities/todo_entity.dart';
-import 'package:todo_shelf_modular/todo_module/domain/usecases/create_todo_usecase.dart';
-import 'package:todo_shelf_modular/todo_module/external/mappers/todo_entity_mapper.dart';
+
+import '../../shared/services/jwt_service.dart';
+import '../domain/entities/todo_entity.dart';
+import '../domain/usecases/create_todo_usecase.dart';
+import '../external/mappers/todo_entity_mapper.dart';
 
 class CreateTodoController {
   final CreateTodoUsecase _createTodoUsecase;
+  final IJwtService _iJwtService;
 
-  CreateTodoController(this._createTodoUsecase);
+  CreateTodoController(this._createTodoUsecase, this._iJwtService);
 
-  Future<Response> createTodo(ModularArguments args) async {
+  Future<Response> createTodo(ModularArguments args, Request request) async {
     log('createTodo');
     final result = await _createTodoUsecase(TodoEntity(
       name: args.data['name'] ?? 'Untitled',
       done: args.data['done'] ?? false,
+      userId: _iJwtService.getUserId((request.headers['Authorization'] ?? 'a a').split(' ').last),
       createAt: args.data['createAt'] == null
           ? DateTime.now()
           : DateTime.tryParse(args.data['createAt']) ?? DateTime.now(),

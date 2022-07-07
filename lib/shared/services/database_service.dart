@@ -1,4 +1,5 @@
 import 'package:postgres/postgres.dart';
+
 import 'database_error.dart';
 import 'read_dot_env.dart';
 
@@ -64,7 +65,9 @@ class DatabaseService {
                 done BOOLEAN NOT NULL DEFAULT FALSE,
                 updateAt TIMESTAMP NOT NULL,
                 createAt TIMESTAMP NOT NULL,
-                deadlineAt TIMESTAMP NOT NULL
+                deadlineAt TIMESTAMP NOT NULL,
+                userId serial,
+                CONSTRAINT userId_fk FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
               );''');
 
     if (resultTodo == 0) {

@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:todo_shelf_modular/shared/contracts/i_mapper.dart';
-
+import '../../../shared/contracts/i_mapper.dart';
 import '../../domain/entities/todo_entity.dart';
 import '../../domain/errors/todo_error.dart';
 
@@ -16,6 +15,7 @@ class TodoEntityMapper implements IMapper<TodoEntity> {
         'createAt': object.createAt?.toIso8601String(),
         'deadlineAt': object.deadlineAt?.toIso8601String(),
         'updateAt': object.updateAt?.toIso8601String(),
+        'userId_fk': object.userId,
       };
     } catch (e, s) {
       throw MapperTodoDatabaseError(exception: e, stackTrace: s);
@@ -32,6 +32,7 @@ class TodoEntityMapper implements IMapper<TodoEntity> {
         updateAt: map['updateat'],
         deadlineAt: map['deadlineat'],
         createAt: map['createat'],
+        userId: map['userid'],
       );
     } catch (e, s) {
       throw MapperTodoDatabaseError(exception: e, stackTrace: s);

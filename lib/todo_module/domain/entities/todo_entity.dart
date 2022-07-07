@@ -1,5 +1,6 @@
 class TodoEntity {
   final int id;
+  final int userId;
   final String name;
   final bool done;
   final DateTime? createAt;
@@ -8,6 +9,7 @@ class TodoEntity {
 
   const TodoEntity({
     this.id = -1,
+    this.userId = -1,
     this.name = '',
     this.done = false,
     this.updateAt,
@@ -17,6 +19,7 @@ class TodoEntity {
 
   TodoEntity copyWith({
     int? id,
+    int? userId,
     String? name,
     bool? done,
     DateTime? createAt,
@@ -25,6 +28,7 @@ class TodoEntity {
   }) {
     return TodoEntity(
       id: id ?? this.id,
+      userId: userId ?? this.userId,
       name: name ?? this.name,
       done: done ?? this.done,
       createAt: createAt ?? this.createAt,

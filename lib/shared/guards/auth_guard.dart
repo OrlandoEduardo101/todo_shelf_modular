@@ -21,7 +21,7 @@ class AuthGuard implements ModularMiddleware {
       final Map<String, dynamic> decodedToken = _jwtDecoder.decode(accessToken);
       final isExpired = DateTime.parse(decodedToken['exp'].toString())
           .isBefore(DateTime.now());
-      if (accessToken.isEmpty || accessToken == '1234' || isExpired) {
+      if (accessToken.isEmpty || !_jwtDecoder.validateJwt(accessToken) || isExpired) {
         return Response.forbidden(jsonEncode({'error': 'Not authorized'}));
       }
       return handler(request);

@@ -11,14 +11,18 @@ import 'package:todo_shelf_modular/auth_module/external/mappers/user_entity_mapp
 import 'package:todo_shelf_modular/auth_module/presenter/auth_messages.dart';
 import 'package:todo_shelf_modular/shared/utils/utils.dart';
 
+import '../../shared/services/jwt_service.dart';
+
 class AuthController {
   const AuthController(
     this._authenticationUser,
     this._registerUser,
+    this._iJwtService,
   );
 
   final IAuthenticationUser _authenticationUser;
   final IRegisterUser _registerUser;
+  final IJwtService _iJwtService;
 
   Future<Response> autheticationUser(ModularArguments args) async {
     final passwordHash = Utils.generateSHA256Hash(args.data['password']);
@@ -40,7 +44,7 @@ class AuthController {
 
       return Response.notFound({'auth': false, 'message': failure.message});
     }, (success) {
-      final jwt = Utils.generateJWT(success);
+      final jwt = _iJwtService.generateJWT(success);
       return Response.ok(
           UserEntityMapper().toJson(success.copyWith(token: jwt)));
     });
