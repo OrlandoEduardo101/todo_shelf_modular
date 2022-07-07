@@ -14,6 +14,7 @@ class Utils {
     final claimSet = JwtClaim(
       issuer: '${env['DB_HOST']}/${env['PORT']}', //"http://localhost:8888",
       subject: user.id.toString(),
+      jwtId: user.id.toString(),
       otherClaims: <String, dynamic>{},
       maxAge: const Duration(days: 1),
     );
