@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 import 'package:todo_shelf_modular/auth_module/domain/usecases/authentication_user.dart';
+import 'package:todo_shelf_modular/auth_module/domain/usecases/refresh_token.dart';
 import 'package:todo_shelf_modular/auth_module/external/datasources/register_user_datasource.dart';
 import 'package:todo_shelf_modular/auth_module/infra/repositories/authentication_user_repository.dart';
 import 'package:todo_shelf_modular/auth_module/infra/repositories/register_user_repository.dart';
@@ -17,6 +18,7 @@ class AuthModule extends Module {
         //domain
         Bind.scoped((i) => AuthenticationUser(i())),
         Bind.scoped((i) => RegisterUser(i())),
+        Bind.scoped((i) => RefreshToken(i())),
 
         //infra
         Bind.scoped((i) => AuthenticationUserRepository(i())),
@@ -27,7 +29,7 @@ class AuthModule extends Module {
         Bind.scoped((i) => RegisterUserDatasource(i())),
 
         //presenter
-        Bind.scoped((i) => AuthController(i(), i(), i())),
+        Bind.scoped((i) => AuthController(i(), i(), i(), i())),
       ];
 
   @override
@@ -38,6 +40,7 @@ class AuthModule extends Module {
         Route.post('/register', (ModularArguments args) => registerUser(args)),
         Route.post('/registerAndAuth',
             (ModularArguments args) => registerAndAuthenticationUser(args)),
+        Route.get('/refreshToken', (ModularArguments args) => refreshToken(args)),
       ];
 
   FutureOr<Response> authenticationUser(ModularArguments args) =>
@@ -46,4 +49,6 @@ class AuthModule extends Module {
       Modular.get<AuthController>().registerUser(args);
   FutureOr<Response> registerAndAuthenticationUser(ModularArguments args) =>
       Modular.get<AuthController>().registerAndAthenticationUser(args);
+  FutureOr<Response> refreshToken(ModularArguments args) =>
+      Modular.get<AuthController>().refreshToken(args);
 }

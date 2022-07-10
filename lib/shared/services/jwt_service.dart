@@ -6,7 +6,7 @@ import 'read_dot_env.dart';
 
 abstract class IJwtService {
   Map<String, dynamic> decode(String token);
-  String generateJWT(UserEntity user);
+  String generateJWT(UserEntity user, {Duration maxAge =  const Duration(days: 1)});
   bool validateJwt(String token);
   int getUserId(String token);
 }
@@ -20,7 +20,7 @@ class JwtService implements IJwtService {
   }
 
   @override
-  String generateJWT(UserEntity user) {
+  String generateJWT(UserEntity user, {Duration maxAge =  const Duration(days: 1)} ) {
     final env = ReadDotEnv().env;
     final claimSet = JwtClaim(
       issuer: '${env['DB_HOST']}/${env['PORT']}', //"http://localhost:8888",
@@ -28,9 +28,9 @@ class JwtService implements IJwtService {
       subject: user.id.toString(),
       jwtId: user.id.toString(),
       otherClaims: <String, dynamic>{},
-      maxAge: const Duration(days: 1),
+      maxAge: maxAge,
     );
-    final token = "Bearer ${issueJwtHS256(claimSet, jwtKey)}";
+    final token = issueJwtHS256(claimSet, jwtKey);
     return token;
   }
 
