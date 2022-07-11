@@ -22,7 +22,7 @@ class AuthGuard implements ModularMiddleware {
       final isExpired = DateTime.parse(decodedToken['exp'].toString())
           .isBefore(DateTime.now());
       if (accessToken.isEmpty || !_jwtDecoder.validateJwt(accessToken) || isExpired) {
-        return Response.forbidden(jsonEncode({'error': 'Not authorized'}));
+        return Response(401, body:  jsonEncode({'error': 'Not authorized'}));
       }
       return handler(request);
     };

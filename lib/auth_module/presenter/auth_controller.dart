@@ -3,17 +3,17 @@ import 'dart:developer';
 
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
-import 'package:todo_shelf_modular/auth_module/domain/entities/user_auth_params.dart';
-import 'package:todo_shelf_modular/auth_module/domain/entities/user_register_params.dart';
-import 'package:todo_shelf_modular/auth_module/domain/usecases/authentication_user.dart';
-import 'package:todo_shelf_modular/auth_module/domain/usecases/refresh_token.dart';
-import 'package:todo_shelf_modular/auth_module/domain/usecases/register_user.dart';
-import 'package:todo_shelf_modular/auth_module/external/mappers/refresh_token_entity_mapper.dart';
-import 'package:todo_shelf_modular/auth_module/external/mappers/user_entity_mapper.dart';
-import 'package:todo_shelf_modular/auth_module/presenter/auth_messages.dart';
-import 'package:todo_shelf_modular/shared/utils/utils.dart';
 
 import '../../shared/services/jwt_service.dart';
+import '../../shared/utils/utils.dart';
+import '../domain/entities/user_auth_params.dart';
+import '../domain/entities/user_register_params.dart';
+import '../domain/usecases/authentication_user.dart';
+import '../domain/usecases/refresh_token.dart';
+import '../domain/usecases/register_user.dart';
+import '../external/mappers/refresh_token_entity_mapper.dart';
+import '../external/mappers/user_entity_mapper.dart';
+import 'auth_messages.dart';
 
 class AuthController {
   const AuthController(
@@ -104,7 +104,7 @@ class AuthController {
   Future<Response> refreshToken(ModularArguments args) async {
     final result = await _refreshToken(args.queryParams['refreshToken'] ?? '');
     return result.fold((failure) {
-      return Response.forbidden(
+      return Response(401, body:
           jsonEncode({'auth': false, 'message': failure.message, 'label': failure.label}));
     }, (success) {
       return Response.ok(RefreshTokenEntityMapper().toJson(success));

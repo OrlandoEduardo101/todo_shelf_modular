@@ -1,8 +1,7 @@
-import 'package:todo_shelf_modular/auth_module/domain/entities/refresh_token_entity.dart';
-import 'package:todo_shelf_modular/auth_module/domain/entities/user_entity.dart';
-import 'package:todo_shelf_modular/shared/services/jwt_service.dart';
-
+import '../../../shared/services/jwt_service.dart';
 import '../../../shared/utils/either/custom_either.dart';
+import '../entities/refresh_token_entity.dart';
+import '../entities/user_entity.dart';
 import '../errors/auth_error.dart';
 
 abstract class IRefreshToken {
@@ -37,7 +36,7 @@ class RefreshToken implements IRefreshToken {
     } else {
       return FailureResponse(RegisterCredentialsError(
         message: 'Refresh token is not valid',
-        label: '403 - Not authorized',
+        label: '401 - Not authorized',
       ));
     }
   }
