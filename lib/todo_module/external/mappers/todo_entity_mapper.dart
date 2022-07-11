@@ -12,11 +12,12 @@ class TodoEntityMapper implements IMapper<TodoEntity> {
         'id': object.id,
         'name': object.name,
         'done': object.done,
+        'userid': object.userId,
         'createAt': object.createAt?.toIso8601String(),
         'deadlineAt': object.deadlineAt?.toIso8601String(),
         'updateAt': object.updateAt?.toIso8601String(),
         'userId_fk': object.userId,
-      };
+      }..removeWhere((key, value) => value == null && (value is String && value.isEmpty));
     } catch (e, s) {
       throw MapperTodoDatabaseError(exception: e, stackTrace: s);
     }

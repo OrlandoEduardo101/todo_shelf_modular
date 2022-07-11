@@ -4,13 +4,13 @@ import 'package:todo_shelf_modular/shared/services/database_error.dart';
 import 'package:todo_shelf_modular/shared/services/database_service.dart';
 import 'package:todo_shelf_modular/todo_module/domain/entities/todo_entity.dart';
 import 'package:todo_shelf_modular/todo_module/domain/errors/todo_error.dart';
-import 'package:todo_shelf_modular/todo_module/external/datasources/create_todo_datasource.dart';
-import 'package:todo_shelf_modular/todo_module/infra/datasources/i_create_todo_datasource.dart';
+import 'package:todo_shelf_modular/todo_module/external/datasources/update_todo_datasource.dart';
+import 'package:todo_shelf_modular/todo_module/infra/datasources/i_update_todo_datasource.dart';
 
 class DataBaseMock extends Mock implements DatabaseService {}
 
 void main() {
-  late final ICreateTodoDatasource datasource;
+  late final IUpdateTodoDatasource datasource;
   late final DatabaseService databaseService;
 
   final date = DateTime.now();
@@ -23,7 +23,7 @@ void main() {
   );
   setUpAll(() {
     databaseService = DataBaseMock();
-    datasource = CreateTodoDatasource(databaseService);
+    datasource = UpdateTodoDatasource(databaseService);
     registerFallbackValue(params);
   });
 
@@ -46,7 +46,7 @@ void main() {
               }
             ]);
 
-    final result = await datasource.createTodo(params);
+    final result = await datasource.updateTodo(params);
 
     expect(result, isA<TodoEntity>());
     expect(result.id, equals(1));
@@ -56,7 +56,7 @@ void main() {
     when(() => databaseService.query(any(), values: any(named: 'values')))
         .thenThrow(ErrorToQuery());
 
-    expect(() => datasource.createTodo(params),
+    expect(() => datasource.updateTodo(params),
         throwsA(isA<SaveTodoDatabaseError>()));
   });
 }
