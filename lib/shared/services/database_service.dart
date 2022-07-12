@@ -44,47 +44,52 @@ class DatabaseService {
 
   Future<void> verifyTables() async {
     // username VARCHAR ( 50 ) UNIQUE NOT NULL,
-    var resultUser = await execute('''
-              CREATE TABLE IF NOT EXISTS users (
-                id serial PRIMARY KEY,
-                passwordHash VARCHAR ( 255 ) NOT NULL,
-                name VARCHAR ( 255 ) NOT NULL,
-                email VARCHAR ( 255 ) UNIQUE NOT NULL,
-                created_on TIMESTAMP NOT NULL,
-                last_login TIMESTAMP 
-              );''');
+    // var resultUser = await execute('''
+    //           CREATE TABLE IF NOT EXISTS users (
+    //             id serial PRIMARY KEY,
+    //             passwordHash VARCHAR ( 255 ) NOT NULL,
+    //             name VARCHAR ( 255 ) NOT NULL,
+    //             email VARCHAR ( 255 ) UNIQUE NOT NULL,
+    //             created_on TIMESTAMP NOT NULL,
+    //             last_login TIMESTAMP 
+    //           );''');
 
-    if (resultUser == 0) {
-      print('no has table');
-    }
+    // if (resultUser == 0) {
+    //   print('verify tables 1');
+    // }
 
-    var resultTodo = await execute('''
-              CREATE TABLE IF NOT EXISTS todos (
-                id serial PRIMARY KEY,
-                name VARCHAR ( 255 ) NOT NULL,
-                done BOOLEAN NOT NULL DEFAULT FALSE,
-                updateAt TIMESTAMP NOT NULL,
-                createAt TIMESTAMP NOT NULL,
-                deadlineAt TIMESTAMP NOT NULL,
-                userId serial,
-                CONSTRAINT userId_fk FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
-              );''');
+    // var resultTodo = await execute('''
+    //           CREATE TABLE IF NOT EXISTS todos (
+    //             id serial PRIMARY KEY,
+    //             name VARCHAR ( 255 ) NOT NULL,
+    //             done BOOLEAN NOT NULL DEFAULT FALSE,
+    //             updateAt TIMESTAMP NOT NULL,
+    //             createAt TIMESTAMP NOT NULL,
+    //             deadlineAt TIMESTAMP NOT NULL,
+    //             userId serial,
+    //             CONSTRAINT userId_fk FOREIGN KEY (userId) REFERENCES users(id) ON DELETE CASCADE
+    //           );''');
 
-    if (resultTodo == 0) {
-      print('no has table');
-    }
+    // if (resultTodo == 0) {
+    //   print('verify tables 1');
+    // }
   }
 
   static Future<DatabaseService> connect(Map<String, dynamic> env) async {
-    int _port = int.tryParse(env['Database_PORT']) ?? 9001;
+    int _port = int.tryParse(env['Database_PORT']) ?? 3001;
     String _host = env['Database_HOST'];
     String _user = env['Database_USER'];
     String _pass = env['Database_PASS'];
     String _name = env['Database_NAME'];
 
     // DatabaseService database = DatabaseService();
-    _singleton._connection = PostgreSQLConnection(_host, _port, _name,
-        username: _user, password: _pass);
+    _singleton._connection = PostgreSQLConnection(
+      _host,
+      _port,
+      _name,
+      username: _user,
+      password: _pass,
+    );
     await _singleton._connection.open();
     return _singleton;
   }

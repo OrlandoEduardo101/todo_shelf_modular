@@ -1,5 +1,6 @@
-import 'package:dotenv/dotenv.dart' as dotenv;
 import 'dart:io';
+
+import 'package:dotenv/dotenv.dart' as dotenv;
 import "package:path/path.dart" show dirname;
 
 class ReadDotEnv {
@@ -41,3 +42,4 @@ class ReadDotEnv {
     }
   }
 }
+

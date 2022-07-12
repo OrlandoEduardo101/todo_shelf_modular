@@ -1,0 +1,27 @@
+version: '3'
+services:
+  database: 
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    volumes: 
+      - "postgres_data:/var/lib/postgresql/data"
+      - "./sql/create_tables.sql:/docker-entrypoint-initdb.d/create_tables.sql"
+    # ports:
+    #   - "5432:5432"
+
+  server: 
+    build: .
+    restart: always
+    volumes:
+      - ./.env:/.env
+      # - "C:\\Users\\Orlando Eduardo Pere\\Projects\\todo_shelf_modular\\.env:/.env"
+    ports:
+      - "8080:3001"
+
+volumes: 
+  postgres_data: 
+
+

@@ -8,6 +8,6 @@ Future<void> main(List<String> arguments) async {
   final env = ReadDotEnv().env;
 
   final server = await io.serve(Modular(module: AppModule()),
-      '${env['API_HOST']}', int.parse(env['API_PORT'] ?? '3001'));
+      '0.0.0.0', int.parse(env['API_PORT'] ?? '3001'));
   print('Server started: ${server.address.address}:${server.port}');
 }
