@@ -4,19 +4,17 @@ import 'dart:developer';
 import 'package:shelf/shelf.dart';
 import 'package:shelf_modular/shelf_modular.dart';
 
-import '../domain/entities/todo_entity.dart';
-import '../domain/usecases/get_todo_by_id_usecase.dart';
-import '../external/mappers/todo_entity_mapper.dart';
+import '../domain/usecases/delete_todo_usecase.dart';
 
-class GetTodoByIdController {
-  final IGetTodoByIdUsecase _getTodoByIdUsecase;
+class DeleteTodoController {
+  final IDeleteTodoUsecase _deleteTodoUsecase;
 
-  GetTodoByIdController(this._getTodoByIdUsecase);
+  DeleteTodoController(this._deleteTodoUsecase);
 
-  Future<Response> getTodoById(ModularArguments args, Request request) async {
-    log('getTodoByToodo');
+  Future<Response> deleteTodo(ModularArguments args, Request request) async {
+    log('deleteTodo');
     final result =
-        await _getTodoByIdUsecase(int.parse(args.queryParams['id'] ?? '-1'));
+        await _deleteTodoUsecase(int.parse(args.queryParams['id'] ?? '-1'));
     return result.fold((failure) {
       if (failure.message.contains('duplicate key')) {
         return Response(
@@ -37,16 +35,13 @@ class GetTodoByIdController {
       return Response.notFound(
           jsonEncode({'succes': false, 'message': failure.message}));
     }, (success) {
-      return Response.ok(TodoEntityMapper().toJson(success));
-    });
-  }
-
-  Future<TodoEntity> getTodoEntity(int id) async {
-    final result = await _getTodoByIdUsecase(id);
-    return result.fold((failure) {
-      return TodoEntity();
-    }, (success) {
-      return success;
+      if (success) {
+        return Response.ok(jsonEncode(
+            {'succes': success, 'message': 'Todo deleted with succes'}));
+      } else {
+        return Response.ok(
+            jsonEncode({'succes': success, 'message': 'Todo not deleted'}));
+      }
     });
   }
 }

@@ -1124,7 +1124,339 @@
 								"method": "GET",
 								"header": []
 							},
-							"response": []
+							"response": [
+								{
+									"name": "200 - success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiMTI3LjAuMC4xIl0sImV4cCI6MTY1NzYzNzE2OSwiaWF0IjoxNjU3NTUwNzY5LCJpc3MiOiIxMjcuMC4wLjEvOTAwMSIsImp0aSI6IjEiLCJzdWIiOiIxIn0.ihnW9JeOJyhM-LMX1zHGGMz0NpSE3bGi7TkF0u0zJu8",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:3001/todo/todoList",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"todo",
+												"todoList"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Mon, 11 Jul 2022 14:46:55 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "351"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "[{\"id\":1,\"name\":\"teste tarefa\",\"done\":false,\"createAt\":\"1969-07-20T20:18:04.000Z\",\"deadlineAt\":\"1969-07-20T20:18:04.000Z\",\"updateAt\":\"1969-07-20T20:18:04.000Z\",\"userId_fk\":1},{\"id\":2,\"name\":\"teste tarefa 2\",\"done\":false,\"createAt\":\"1969-07-20T20:18:04.000Z\",\"deadlineAt\":\"1969-07-20T20:18:04.000Z\",\"updateAt\":\"1969-07-20T20:18:04.000Z\",\"userId_fk\":1}]"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "update",
+					"item": [
+						{
+							"name": "update todo",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"name\": \"teste edit tarefa\",\r\n}"
+								},
+								"url": {
+									"raw": "http://127.0.0.1:3001/todo/todoList?id=1",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "3001",
+									"path": [
+										"todo",
+										"todoList"
+									],
+									"query": [
+										{
+											"key": "id",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "403 - \"Not authorized\"",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\"name\": \"teste edit tarefa\"\r\n}"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3001/todo/updateTodo?id=1",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"todo",
+												"updateTodo"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "Forbidden",
+									"code": 403,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Mon, 11 Jul 2022 15:07:54 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "26"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "{\"error\":\"Not authorized\"}"
+								},
+								{
+									"name": "200 - success",
+									"originalRequest": {
+										"method": "PATCH",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiMTI3LjAuMC4xIl0sImV4cCI6MTY1NzYzNzE2OSwiaWF0IjoxNjU3NTUwNzY5LCJpc3MiOiIxMjcuMC4wLjEvOTAwMSIsImp0aSI6IjEiLCJzdWIiOiIxIn0.ihnW9JeOJyhM-LMX1zHGGMz0NpSE3bGi7TkF0u0zJu8",
+												"type": "text"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\r\n\"name\": \"teste edit tarefa\"\r\n}"
+										},
+										"url": {
+											"raw": "http://127.0.0.1:3001/todo/updateTodo?id=1",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"todo",
+												"updateTodo"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "1"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Mon, 11 Jul 2022 18:39:29 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "189"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "{\"id\":1,\"name\":\"teste edit tarefa\",\"done\":false,\"userid\":1,\"createAt\":\"1969-07-20T20:18:04.000Z\",\"deadlineAt\":\"1969-07-20T20:18:04.000Z\",\"updateAt\":\"1969-07-20T20:18:04.000Z\",\"userId_fk\":1}"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "delete todo",
+					"item": [
+						{
+							"name": "delete",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": [
+								{
+									"name": "200 - succes",
+									"originalRequest": {
+										"method": "DELETE",
+										"header": [
+											{
+												"key": "Authorization",
+												"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOlsiMTI3LjAuMC4xIl0sImV4cCI6MTY1NzcxMjUyNywiaWF0IjoxNjU3NjI2MTI3LCJpc3MiOiIxMjcuMC4wLjEvOTAwMSIsImp0aSI6IjEiLCJzdWIiOiIxIn0.17w8PGVWHwmhXefzM3uBrrEQ3E-iX0wnLcwNDL1FnMs",
+												"type": "text"
+											}
+										],
+										"url": {
+											"raw": "http://127.0.0.1:3001/todo/deleteTodo?id=2",
+											"protocol": "http",
+											"host": [
+												"127",
+												"0",
+												"0",
+												"1"
+											],
+											"port": "3001",
+											"path": [
+												"todo",
+												"deleteTodo"
+											],
+											"query": [
+												{
+													"key": "id",
+													"value": "2"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "plain",
+									"header": [
+										{
+											"key": "date",
+											"value": "Tue, 12 Jul 2022 11:46:10 GMT"
+										},
+										{
+											"key": "content-length",
+											"value": "52"
+										},
+										{
+											"key": "x-frame-options",
+											"value": "SAMEORIGIN"
+										},
+										{
+											"key": "content-type",
+											"value": "text/plain; charset=utf-8"
+										},
+										{
+											"key": "x-xss-protection",
+											"value": "1; mode=block"
+										},
+										{
+											"key": "x-content-type-options",
+											"value": "nosniff"
+										},
+										{
+											"key": "server",
+											"value": "dart:io with Shelf"
+										}
+									],
+									"cookie": [],
+									"body": "{\"succes\":true,\"message\":\"Todo deleted with succes\"}"
+								}
+							]
 						}
 					]
 				},

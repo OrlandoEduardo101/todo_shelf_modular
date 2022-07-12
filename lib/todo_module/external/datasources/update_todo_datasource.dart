@@ -24,7 +24,7 @@ class UpdateTodoDatasource implements IUpdateTodoDatasource {
             createAt = @createAt,
             deadlineAt = @deadlineAt
           WHERE
-            id = id;''';
+            id = @id;''';
 
       String sqlSelect = "SELECT * FROM todos WHERE id = @id";
 

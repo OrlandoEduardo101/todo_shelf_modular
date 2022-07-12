@@ -15,7 +15,7 @@ class GetTodoByIdRepository implements IGetTodoByIdRepository {
       return SuccessResponse(result);
     } on IFailureTodo catch (error, stacktrace) {
       return FailureResponse(
-        SaveTodoDatabaseError(
+        ReadTodoDatabaseError(
           message: error.message,
           exception: error,
           stackTrace: stacktrace,

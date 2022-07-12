@@ -17,10 +17,6 @@ class UpdateTodoUsecase implements IUpdateTodoUsecase {
 
   @override
   UpdateTodoResponse call(TodoEntity param) async {
-    // if (param.name.isEmpty) {
-    //   return FailureResponse(
-    //       SaveTodoDatabaseError(message: 'Invalid name format'));
-    // }
     return _repository.updateTodo(param);
   }
 }
