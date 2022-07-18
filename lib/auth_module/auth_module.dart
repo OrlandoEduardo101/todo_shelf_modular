@@ -36,19 +36,19 @@ class AuthModule extends Module {
   List<Route> get routes => [
         Route.get('/', () => Response.ok('OK!')),
         Route.post(
-            '/login', (ModularArguments args) => authenticationUser(args)),
+            '/login',  authenticationUser),
         Route.post('/register', (ModularArguments args) => registerUser(args)),
         Route.post('/registerAndAuth',
-            (ModularArguments args) => registerAndAuthenticationUser(args)),
+            (ModularArguments args, Request request) => registerAndAuthenticationUser(args, request)),
         Route.get('/refreshToken', (ModularArguments args) => refreshToken(args)),
       ];
 
-  FutureOr<Response> authenticationUser(ModularArguments args) =>
-      Modular.get<AuthController>().autheticationUser(args);
+  FutureOr<Response> authenticationUser(ModularArguments args, Request request) =>
+      Modular.get<AuthController>().autheticationUser(args, request);
   FutureOr<Response> registerUser(ModularArguments args) =>
       Modular.get<AuthController>().registerUser(args);
-  FutureOr<Response> registerAndAuthenticationUser(ModularArguments args) =>
-      Modular.get<AuthController>().registerAndAthenticationUser(args);
+  FutureOr<Response> registerAndAuthenticationUser(ModularArguments args, Request request) =>
+      Modular.get<AuthController>().registerAndAthenticationUser(args, request);
   FutureOr<Response> refreshToken(ModularArguments args) =>
       Modular.get<AuthController>().refreshToken(args);
 }

@@ -28,7 +28,7 @@ class AuthController {
   final IRefreshToken _refreshToken;
   final IJwtService _iJwtService;
 
-  Future<Response> autheticationUser(ModularArguments args) async {
+  Future<Response> autheticationUser(ModularArguments args, Request request) async {
     final passwordHash = Utils.generateSHA256Hash(args.data['password']);
     final result = await _authenticationUser(UserAuthParams(
         email: args.data['email'],
@@ -91,11 +91,11 @@ class AuthController {
     });
   }
 
-  Future<Response> registerAndAthenticationUser(ModularArguments args) async {
+  Future<Response> registerAndAthenticationUser(ModularArguments args, Request request) async {
     final registerResult = await registerUser(args);
 
     if (registerResult.statusCode == 200) {
-      return await autheticationUser(args);
+      return await autheticationUser(args, request);
     }
 
     return registerResult;
