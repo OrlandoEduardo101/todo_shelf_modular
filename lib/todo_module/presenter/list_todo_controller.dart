@@ -43,7 +43,7 @@ class ListTodoController {
       for (var element in success) {
         listMapTodos.add(TodoEntityMapper().toMap(element));
       }
-      return Response.ok(jsonEncode(listMapTodos));
+      return Response.ok(jsonEncode({'list': listMapTodos}));
     });
   }
 }
